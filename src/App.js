@@ -1,25 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { Suspense, lazy } from 'react'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import VirtualizationList from './hooks/3.2 Virtualization'
 
+const Home = lazy(() => import('./pages/4.1 Home')) //4.1
+const Profile = lazy(() => import('./pages/4.1 Profile')) //4.1
+
+const Loader = () => <div>Loading...</div>
+
+//4.1
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <Router>
+      <Suspense fallback={<Loader />}>
+        <Routes>
+          <Route path="/virtualization" element={<VirtualizationList />}/>
+          <Route path="/home" element={<Home />}/>
+          <Route path="/profile" element={<Profile />}/>
+        </Routes>
+      </Suspense>
+    </Router>
+  )
 }
 
-export default App;
+export default App

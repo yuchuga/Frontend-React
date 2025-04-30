@@ -4,6 +4,10 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Available Scripts
 
+### `helm start helm`
+
+To create helm chart
+
 In the project directory, you can run:
 
 ### `npm start`
