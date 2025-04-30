@@ -1,7 +1,5 @@
 // Include properties that are not undefined & removes optional modifier from a property
-// T - object type
-// K - key
-// P - generic placeholder or variable
+// T - object type, K - key, P - generic placeholder or variable
 type RequiredKeys<T> = {
   [K in keyof T]-?: T extends { [P in K]: T[K] } ? K : never
 }[keyof T]

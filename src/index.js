@@ -4,7 +4,7 @@ import App from './App'
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
 
-//4.2 SSR Hydrations
+//4.2 SSR Hydration
 //hydrateRoot(document.getElementById('root'), <React.StrictMode><App /></React.StrictMode>)
 
 root.render(

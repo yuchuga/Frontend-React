@@ -2,12 +2,13 @@ import React, { Suspense, lazy } from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import VirtualizationList from './hooks/3.2 Virtualization'
 
-const Home = lazy(() => import('./pages/4.1 Home')) //4.1
-const Profile = lazy(() => import('./pages/4.1 Profile')) //4.1
+//4.1 Lazy Loading
+const Home = lazy(() => import('./pages/4.1 Home')) 
+const Profile = lazy(() => import('./pages/4.1 Profile')) 
 
 const Loader = () => <div>Loading...</div>
 
-//4.1
+//4.1 Suspense Fallback and Dynamic Routing
 function App() {
   return (
     <Router>
