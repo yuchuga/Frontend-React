@@ -14,7 +14,7 @@ function App() {
     <Router>
       <Suspense fallback={<Loader />}>
         <Routes>
-          <Route path="/virtualization" element={<VirtualizationList />}/>
+          <Route path="/" element={<VirtualizationList />}/>
           <Route path="/home" element={<Home />}/>
           <Route path="/profile" element={<Profile />}/>
         </Routes>
