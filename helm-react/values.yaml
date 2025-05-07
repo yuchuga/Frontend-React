@@ -4,26 +4,19 @@
 appName: helm-react
 namespace: default
 
-configmap:
-  # This is for setting up the configmap more information can be found here: https://kubernetes.io/docs/concepts/configuration/configmap/
-  enabled: false
-  name: helm-react-configmap
-  data:
-    CUSTOM_HEADER: "This app is deployed with Helm"
-
 # This is for setting the chart name and version more information can be found here: https://helm.sh/docs/topics/chart_template_guide/#the-chart-yaml-file
 # This will set the replicaset count more information can be found here: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset/
 replicaCount: 1
 
 # This sets the container image more information can be found here: https://kubernetes.io/docs/concepts/containers/images/
 image:
-  name: devops/helm-react
+  repository: frontend-react-helm
+  # This is for setting the image name more information can be found here: https://kubernetes.io/docs/concepts/containers/images/
   pullPolicy: IfNotPresent
   tag: latest
 
 # This is for the secrets for pulling an image from a private repository more information can be found here: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
 imagePullSecrets: []
-# This is to override the chart name.
 nameOverride: ""
 fullnameOverride: ""
 
@@ -35,7 +28,7 @@ serviceAccount:
   automount: true
   # Annotations to add to the service account
   annotations: {}
-  # The name of the service account to use.
+  # The name of the service account to use
   # If not set and create is true, a name is generated using the fullname template
   name: ""
 
@@ -60,7 +53,7 @@ securityContext: {}
 # This is for setting up a service more information can be found here: https://kubernetes.io/docs/concepts/services-networking/service/
 service:
   # This sets the service type more information can be found here: https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services-service-types
-  type: ClusterIP
+  type: LoadBalancer
   # This sets the ports more information can be found here: https://kubernetes.io/docs/concepts/services-networking/service/#field-spec-ports
   port: 80
 
@@ -69,27 +62,17 @@ ingress:
   enabled: false
   className: ""
   annotations: {}
-    # kubernetes.io/ingress.class: nginx
-    # kubernetes.io/tls-acme: "true"
   hosts:
     - host: chart-example.local
       paths:
         - path: /
           pathType: ImplementationSpecific
   tls: []
-  #  - secretName: chart-example-tls
-  #    hosts:
-  #      - chart-example.local
-
-extraEnvVars: []
-#   - name: REACT_APP_API_URL
-#     value: https://api.example.com
+    # - secretName: chart-example-tls
+    #   hosts:
+    #     - chart-example.loca
 
 resources: {}
-  # We usually recommend not to specify default resources and to leave this as a conscious
-  # choice for the user. This also increases chances charts run on environments with little
-  # resources, such as Minikube. If you do want to specify resources, uncomment the following
-  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
   # limits:
   #   cpu: 100m
   #   memory: 128Mi
@@ -113,7 +96,8 @@ autoscaling:
   minReplicas: 1
   maxReplicas: 100
   targetCPUUtilizationPercentage: 80
-  # targetMemoryUtilizationPercentage: 80
+
+extraEnvVars: []
 
 # Additional volumes on the output Deployment definition.
 volumes: []
