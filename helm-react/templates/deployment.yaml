@@ -15,10 +15,10 @@ spec:
       labels:
         app: {{ .Values.appName }}
         tier: frontend
-    spec: #Pod Spec
+    spec: # Pod Spec
       containers:
         - name: mycontainer
-          image: "{{ .Values.image.name }}:{{ .Values.image.tag }}"
+          image: "yuchuga/{{ .Values.image.name }}:{{ .Values.image.tag }}" # same name as docker image
           ports:
             - name: http
               containerPort: 80
