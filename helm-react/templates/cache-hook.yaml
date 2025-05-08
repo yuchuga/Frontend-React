@@ -1,0 +1,25 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: purge-aws-cache
+  annotations:
+    "helm.sh/hook": post-upgrade
+    "helm.sh/hook-weight": "0"
+    "helm.sh/hook-delete-policy": hook-succeeded
+spec:
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: purge-cache
+          image: amazon/aws-cli:2.27.10
+          env:
+            valueFrom:
+              secretKeyRef:
+          command: ["/bin/sh", "-c"]
+          args: [
+            "aws cloudfront create-invalidation 
+              --distribution-id {{ .Values.cloudfront.distributionId }} 
+              --path '{{ .Values.cloudfront.invalidationPaths }}' 
+              --region {{ .Values.aws.region }}"
+          ]

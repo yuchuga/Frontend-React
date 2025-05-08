@@ -4,7 +4,12 @@
 appName: helm-react
 namespace: default
 
-# This is for setting the chart name and version more information can be found here: https://helm.sh/docs/topics/chart_template_guide/#the-chart-yaml-file
+aws:
+  region: "ap-southeast-1"
+cloudfront:
+  distributionId: "E3ETLULXTQ6MT1"
+  invalidationPaths: "/static/*"
+
 # This will set the replicaset count more information can be found here: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset/
 replicaCount: 1
 
