@@ -77,6 +77,10 @@ To create helm chart
 
 To install helm chart
 
+### `helm upgrade rontend-react-helm ./helm-react --reuse-values`
+
+To run post-upgrade helm hook
+
 ###  `helm list`
 
 To list all helm chart releases
@@ -88,3 +92,7 @@ To list all pods in a namespace
 ###  `kubectl get all`
 
 To list all resources in a namespace
+
+### `kubectl create secret generic aws-credentials --from-literal=access_key=<ACCESS_KEY> --from-literal=secret_access_key=<SECRET_ACCESS_KEY>`
+
+To create a Kubernetes secret file
