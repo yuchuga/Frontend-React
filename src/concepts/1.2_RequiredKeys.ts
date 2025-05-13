@@ -1,35 +1,36 @@
-// Include properties that are not undefined & removes optional modifier from a property
+// Include properties that are not undefined & filters out optional modifier from a key
 // T - object type, K - key, P - generic placeholder or variable
 type RequiredKeys<T> = {
-  [K in keyof T]-?: T extends { [P in K]: T[K] } ? K : never
-}[keyof T]
+  [K in keyof T]-?: {} extends Pick<T, K> ? never : K
+}[keyof T];
 
-function ensureRequiredKeys<T>(obj): T {
+function validateRequiredKeys<T>(obj): T {
   const requiredKeys = Object.keys(obj) as Array<RequiredKeys<T>>
 
   // Iterate over requiredKeys and check if key is present
   for (const key of requiredKeys) {
-    if (obj[key] === undefined || obj[key] === null) {
+    if (obj[key] === undefined) {
       throw new Error(`Missing required key: ${String(key)}`)
     }
   }
   return obj
 };
 
-interface Person {
-  name: string
-  age?: number
-  address: string
+interface User {
+  id: number
+  name?: string
+  email: string
 }
 
-const validPerson: Person = {
-  name: "John",
-  address: "Singapore",
+const validUser = {
+  id: 1,
+  email: "john@hotmail.com"
 };
 
-const invalidPerson: Person = {
-  name: "Jane",
+const invalidUser = {
+  id: 2,
+  name: "Alice"
 };
 
-ensureRequiredKeys(validPerson) // success
-ensureRequiredKeys(invalidPerson) // throws Error: Missing required key: address
+validateRequiredKeys<User>(validUser) // success
+validateRequiredKeys<User>(invalidUser) // throws Error: Missing required key: email
